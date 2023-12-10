@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="chatbot.css"> <!-- Link to the external CSS file -->
+</head>
+<body>
+    <h1>Chatbot</h1>
+    
+    <form id="chatForm" action="/get_response" method="post">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" required><br>
+
+        <input type="submit" value="Ask">
+    </form>
+
+    <div id="chatHistory"></div>
+
+    <div class="response-box">
+        <h3>Response:</h3>
+        <p id="response"></p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var chatForm = document.getElementById("chatForm");
+            var chatHistory = document.getElementById("chatHistory");
+            var responseBox = document.getElementById("response");
+
+            chatForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                var questionInput = document.getElementById("question");
+                var questionValue = questionInput.value;
+
+                // Record the time before making the request
+                var startTime = new Date().getTime();
+
+                // Simulate the form submission
+                // (Replace this with your actual form submission logic)
+                // For demonstration purposes, we'll just log the question
+                console.log("Question:", questionValue);
+
+                // Simulate the response (replace this with actual API call)
+                var fakeResponse = "Simulated response";
+
+                // Calculate latency in seconds
+                var endTime = new Date().getTime();
+                var latency = (endTime - startTime) / 1000; // convert milliseconds to seconds
+
+                // Display question and response in separate divs with timestamps
+                var chatEntry = document.createElement("div");
+                chatEntry.innerHTML = `
+                    <div><strong>Question:</strong> ${questionValue}</div>
+                    <div><strong>Response:</strong> ${fakeResponse}</div>
+                    <div><strong>Latency:</strong> ${latency.toFixed(2)} seconds</div>
+                    <hr>
+                `;
+
+                chatHistory.appendChild(chatEntry);
+                responseBox.innerText = fakeResponse;
+
+                // Clear the input field
+                questionInput.value = "";
+            });
+        });
+    </script>
+
+</body>
+</html>

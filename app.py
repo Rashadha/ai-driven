@@ -302,7 +302,7 @@ def get_response():
     """
 
     response = generation_model.predict(prompt).text
-    return render_template('index.html', context=context, question=question, response=response)
+    return render_template('chatbot.html', context=context, question=question, response=response)
 
 if __name__ == '__main__':
     app.run(debug=True)
