@@ -7,66 +7,50 @@
     <link rel="stylesheet" href="chatbot.css"> <!-- Link to the external CSS file -->
 </head>
 <body>
-    <h1>Chatbot</h1>
-    
-    <form id="chatForm" action="/get_response" method="post">
-        <label for="question">Question:</label>
-        <input type="text" id="question" name="question" required><br>
+    <div class="container">
+        <h1>Chatbot</h1>
+        
+        <form action="/get_response" method="post">
+            <label for="question">Question:</label>
+            <input type="text" id="question" name="question" required><br>
+        
+            <label for="question_category">Question Category:</label>
+            <select id="question_category" name="question_category" required>
+                <option value="mathematics">Mathematics</option>
+                <option value="tensors">Tensors</option>
+                <option value="physics">Physics</option>
+                <option value="biology">Biology</option>
+                <option value="ai">AI</option>
+            </select><br>
+        
+            <input type="submit" value="Ask">
+        </form>
+        
 
-        <input type="submit" value="Ask">
-    </form>
+        {% if response %}
+        <div class="response-box">
+            <h3>Question:</h3>
+            <p>{{ question }}</p>
+            <h3>Response:</h3>
+            <p>{{ response }}</p>
+            <p id="latency">{{latency}}</p>
+        </div>
+        {% endif %}
 
-    <div id="chatHistory"></div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('chatForm').addEventListener('submit', function (event) {
+                    var startTime = performance.now(); // Record start time before form submission
 
-    <div class="response-box">
-        <h3>Response:</h3>
-        <p id="response"></p>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var chatForm = document.getElementById("chatForm");
-            var chatHistory = document.getElementById("chatHistory");
-            var responseBox = document.getElementById("response");
-
-            chatForm.addEventListener("submit", function(event) {
-                event.preventDefault();
-
-                var questionInput = document.getElementById("question");
-                var questionValue = questionInput.value;
-
-                // Record the time before making the request
-                var startTime = new Date().getTime();
-
-                // Simulate the form submission
-                // (Replace this with your actual form submission logic)
-                // For demonstration purposes, we'll just log the question
-                console.log("Question:", questionValue);
-
-                // Simulate the response (replace this with actual API call)
-                var fakeResponse = "Simulated response";
-
-                // Calculate latency in seconds
-                var endTime = new Date().getTime();
-                var latency = (endTime - startTime) / 1000; // convert milliseconds to seconds
-
-                // Display question and response in separate divs with timestamps
-                var chatEntry = document.createElement("div");
-                chatEntry.innerHTML = `
-                    <div><strong>Question:</strong> ${questionValue}</div>
-                    <div><strong>Response:</strong> ${fakeResponse}</div>
-                    <div><strong>Latency:</strong> ${latency.toFixed(2)} seconds</div>
-                    <hr>
-                `;
-
-                chatHistory.appendChild(chatEntry);
-                responseBox.innerText = fakeResponse;
-
-                // Clear the input field
-                questionInput.value = "";
+                    // Example: Simulating an asynchronous request with setTimeout
+                    setTimeout(function () {
+                        var endTime = performance.now(); // Record end time after simulating execution
+                        var latency = endTime - startTime;
+                        document.getElementById('latency').innerText = 'Execution Time: ' + latency.toFixed(2) + ' ms';
+                    }, 1000); // Simulating 1000 ms (1 second) of latency
+                });
             });
-        });
-    </script>
-
+        </script>
+    </div>
 </body>
 </html>

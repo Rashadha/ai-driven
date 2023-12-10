@@ -1,23 +1,59 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
+    <link rel="stylesheet" href="chatbot.css"> <!-- Link to the external CSS file -->
 </head>
 <body>
-    <h1>Chatbot</h1>
-    
-    <form action="/get_response" method="post">
-        <label for="question">Question:</label>
-        <input type="text" id="question" name="question" required><br>
+    <div class="container">
+        <h1>Chatbot</h1>
+        
+        <form action="/get_response" method="post">
+            <label for="question">Question:</label>
+            <input type="text" id="question" name="question" required><br>
 
-        <input type="submit" value="Ask">
-    </form>
+            <input type="submit" value="Ask">
+        </form>
 
-    {% if response %}
-    <h3>Response:</h3>
-    <p>{{ response }}</p>
-    {% endif %}
+        {% if response %}
+        <div class="response-box">
+            <h3>Question:</h3>
+            <p>{{ question }}</p>
+            <h3>Response:</h3>
+            <p>{{ response }}</p>
+            <p id="latency">{{latency}}</p>
+        </div>
+        {% endif %}
+
+        
+        <script>
+            document.getElementById('chatForm').addEventListener('submit', function (event) {
+                var startTime = performance.now(); // Record start time before form submission
+                // Optionally, you can also send the start time to the server for more accurate measurement
+
+                // You can add an AJAX request here to submit the form data asynchronously
+
+                // Example:
+                // var formData = new FormData(this);
+                // fetch('/get_response', {
+                //     method: 'POST',
+                //     body: formData
+                // }).then(response => response.json()).then(data => {
+                //     var endTime = performance.now(); // Record end time after receiving the response
+                //     var latency = endTime - startTime;
+                //     document.getElementById('latency').innerText = 'Execution Time: ' + latency.toFixed(2) + ' ms';
+                // });
+
+                // For demonstration purposes, we'll use setTimeout to simulate latency
+                setTimeout(function () {
+                    var endTime = performance.now(); // Record end time after simulating execution
+                    var latency = endTime - startTime;
+                    document.getElementById('latency').innerText = 'Execution Time: ' + latency.toFixed(2) + ' ms';
+                }, 1000); // Simulating 1000 ms (1 second) of latency
+            });
+        </script>
+    </div>
 </body>
-</html> -->
+</html>

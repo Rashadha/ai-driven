@@ -287,6 +287,13 @@ evaluation. It provides a robust assessment of
 a model's generalization ability.
 """
 
+parameters = {
+    'temperature': 0.2,
+    'max_output_tokens': 1024,
+    'top_p': 0.8,
+    'top_k': 40
+}
+
 @app.route('/')
 def index():
     return render_template('chatbot.html', context=context)
